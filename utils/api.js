@@ -35,7 +35,7 @@ export const fetchArticleById = (id) => {
 };
 
 export const fetchArticleComments = (id) => {
-  return API.get(`/articles/${id}/comments`).then(
+  return API.get(`/articles/${id}/comments`, { params: {} }).then(
     (response) => _validateResponseAndGrabData(response).comments
   );
 };
@@ -44,4 +44,11 @@ export const castVoteOnArticle = (id, votes) => {
   return API.patch(`/articles/${id}`, { inc_votes: votes }).then((response) =>
     _validateResponseAndGrabData(response)
   );
+};
+
+export const commentOnArticle = (id, comment) => {
+  return API.post(`/articles/${id}/comments`, {
+    username: "tickle122",
+    body: comment,
+  }).then((response) => _validateResponseAndGrabData(response));
 };
