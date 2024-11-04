@@ -27,3 +27,15 @@ export const fetchArticles = () => {
     (response) => _validateResponseAndGrabData(response).articles
   );
 };
+
+export const fetchArticleById = (id) => {
+  return API.get(`/articles/${id}`).then((response) =>
+    _validateResponseAndGrabData(response)
+  );
+};
+
+export const fetchArticleComments = (id) => {
+  return API.get(`/articles/${id}/comments`).then(
+    (response) => _validateResponseAndGrabData(response).comments
+  );
+};

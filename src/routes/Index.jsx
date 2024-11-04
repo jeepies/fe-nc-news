@@ -5,7 +5,7 @@ import ArticleCard from "../components/ArticleCard";
 
 export default function Index() {
   const [categorizedArticles, setCategorizedArticles] = useState({});
-  const [error, setError] = useState([]);
+  const [hasError, setError] = useState(false);
 
   useEffect(() => {
     fetchArticles()
@@ -18,7 +18,7 @@ export default function Index() {
         });
         setCategorizedArticles(categorizedItems);
       })
-      .catch((err) => setError(err.message));
+      .catch(() => setError(setError(true)));
   }, []);
 
   const displayedArticles = Object.entries(categorizedArticles).map(
@@ -26,17 +26,23 @@ export default function Index() {
   );
 
   return (
-    <div className="m-1 grid gap-2">
-      {displayedArticles.map((item) => {
-        const [topic, articles] = Object.entries(item)[0];
-        return (
-          <Wrapper title={topic}>
-            {articles.map((article) => (
-              <ArticleCard article={article} />
-            ))}
-          </Wrapper>
-        );
-      })}
-    </div>
+    <>
+      {hasError ? (
+        <></>
+      ) : (
+        <div className="m-1 grid gap-2">
+          {displayedArticles.map((item) => {
+            const [topic, articles] = Object.entries(item)[0];
+            return (
+              <Wrapper title={topic}>
+                {articles.map((article) => (
+                  <ArticleCard article={article} />
+                ))}
+              </Wrapper>
+            );
+          })}
+        </div>
+      )}
+    </>
   );
 }
