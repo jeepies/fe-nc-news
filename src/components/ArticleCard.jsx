@@ -1,27 +1,27 @@
 import { Heart, HeartCrack, MessageCircle } from "lucide-react";
-import { ARTICLE } from "../../utils/types";
 import { Link } from "react-router-dom";
 
 export default function ArticleCard(props) {
-  const _ = ARTICLE(props.article);
+  const article = props.article;
 
   return (
-    <Link to={`/article/${_.id}`}>
+    <Link to={`/article/${article.article_id}`}>
       <div className="bg-dark-grey rounded p-2">
-        <p className="font-bold text-lg">{_.title}</p>
+        <p className="font-bold text-lg">{article.title}</p>
         <p className="font-extralight text-sm opacity-75">
-          By {_.author}
+          By {article.author}
         </p>
         {}
         <p className="text-a">
-          {_.votes < 0 ? <HeartCrack /> : <Heart />}
-          {_.votes}
+          {article.votes < 0 ? <HeartCrack /> : <Heart />}
+          {article.votes}
         </p>
         <p>
           <MessageCircle />
-          {_.comment_count}
+          {article.comment_count}
         </p>
       </div>
     </Link>
   );
 }
+
