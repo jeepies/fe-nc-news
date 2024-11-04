@@ -39,3 +39,9 @@ export const fetchArticleComments = (id) => {
     (response) => _validateResponseAndGrabData(response).comments
   );
 };
+
+export const castVoteOnArticle = (id, votes) => {
+  return API.patch(`/articles/${id}`, { inc_votes: votes }).then((response) =>
+    _validateResponseAndGrabData(response)
+  );
+};
