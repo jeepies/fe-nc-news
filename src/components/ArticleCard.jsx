@@ -1,0 +1,24 @@
+import { Heart, HeartCrack, MessageCircle } from "lucide-react";
+import { article } from "../../utils/types";
+
+export default function ArticleCard(props) {
+  const _ = article(props.article);
+
+  return (
+    <div className="bg-dark-grey rounded p-2">
+      <p className="font-bold text-lg">{_.title}</p>
+      <p className="font-extralight text-sm opacity-75">
+        By <a className="text-slate-300 hover:cursor-pointer">{_.author}</a>
+      </p>
+      {}
+      <p className="text-a">
+        {_.votes < 0 ? <HeartCrack /> : <Heart />}
+        {_.votes}
+      </p>
+      <p>
+        <MessageCircle />
+        {_.comment_count}
+      </p>
+    </div>
+  );
+}
