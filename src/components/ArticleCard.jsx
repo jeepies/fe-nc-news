@@ -11,7 +11,6 @@ export default function ArticleCard(props) {
         <p className="font-extralight text-sm opacity-75">
           By {article.author}
         </p>
-        {}
         <p className="text-a">
           {article.votes < 0 ? <HeartCrack /> : <Heart />}
           {article.votes}
