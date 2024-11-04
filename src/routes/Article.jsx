@@ -35,12 +35,10 @@ export default function Article() {
 
   const castNegativeVote = (e) => {
     e.target.disabled = true;
-    castVoteOnArticle(id, -1)
-      .then(() => {
-        setVotes(votes - 1);
-        e.target.disabled = false;
-      })
-      .catch();
+    castVoteOnArticle(id, -1).then(() => {
+      setVotes(votes - 1);
+      e.target.disabled = false;
+    });
   };
 
   const castPositiveVote = (e) => {
