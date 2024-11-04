@@ -33,3 +33,9 @@ export const fetchArticleById = (id) => {
     _validateResponseAndGrabData(response)
   );
 };
+
+export const fetchArticleComments = (id) => {
+  return API.get(`/articles/${id}/comments`).then(
+    (response) => _validateResponseAndGrabData(response).comments
+  );
+};

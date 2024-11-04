@@ -3,7 +3,7 @@ export default function Navbar() {
     <nav className="bg-heavy-metal">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
         <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
-          NC News
+          <a href="/">NC News</a>
         </span>
         <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
           <button
