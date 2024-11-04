@@ -5,7 +5,7 @@ import {
   fetchArticleById,
   fetchArticleComments,
 } from "../../utils/api";
-import { Heart, MinusIcon, PlusIcon } from "lucide-react";
+import { MinusIcon, PlusIcon } from "lucide-react";
 import Chip from "../components/Chip";
 import ArticleSkeleton from "../components/ArticleSkeleton";
 
@@ -21,7 +21,7 @@ export default function Article() {
     fetchArticleById(id)
       .then((data) => {
         setArticle(data);
-        setVotes(data.votes)
+        setVotes(data.votes);
         if (data.comment_count !== 0) {
           return fetchArticleComments(id);
         }
@@ -33,15 +33,21 @@ export default function Article() {
       .catch(() => setHasError(true));
   }, []);
 
-  const castNegativeVote = () => {
-    castVoteOnArticle(id, -1).then((result) => {
-      setVotes(votes -  1)
-    }).catch()
+  const castNegativeVote = (e) => {
+    e.target.disabled = true;
+    castVoteOnArticle(id, -1)
+      .then(() => {
+        setVotes(votes - 1);
+        e.target.disabled = false;
+      })
+      .catch();
   };
 
-  const castPositiveVote = () => {
-    castVoteOnArticle(id, 1).then((result) => {
-      setVotes(votes + 1)
+  const castPositiveVote = (e) => {
+    e.target.disabled = true;
+    castVoteOnArticle(id, 1).then(() => {
+      setVotes(votes + 1);
+      e.target.disabled = false;
     });
   };
 
@@ -66,25 +72,27 @@ export default function Article() {
             </p>
             <br />
             <div className="">{article.body}</div>
-            <button id="plus" onClick={castNegativeVote}>
-              <MinusIcon />
-            </button>
             <div className="bg-dark-grey rounded">
-              {votes} <Heart />
+              <button id="plus" onClick={castNegativeVote}>
+                <MinusIcon />
+              </button>
+              <span>{votes}</span>
+              <button id="plus" onClick={castPositiveVote}>
+                <PlusIcon />
+              </button>
             </div>
-            <button id="plus" onClick={castPositiveVote}>
-              <PlusIcon />
-            </button>
           </div>
 
           <div className="bg-heavy-metal m-2 p-2 rounded text-white">
             <div>
               <h1 className="font-bold text-xl">Comments</h1>
-              {/* <p className="float-right">
-            <MessageCircle />
-            {article.comment_count}
-          </p> */}
             </div>
+            <form>
+              <textarea
+                className="bg-dark-grey rounded w-full"
+                name="comment"
+              />
+            </form>
             {comments.length === 0 ? (
               <label>No comments :3</label>
             ) : (
