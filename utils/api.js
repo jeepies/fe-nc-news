@@ -27,3 +27,9 @@ export const fetchArticles = () => {
     (response) => _validateResponseAndGrabData(response).articles
   );
 };
+
+export const fetchArticleById = (id) => {
+  return API.get(`/articles/${id}`).then((response) =>
+    _validateResponseAndGrabData(response)
+  );
+};
