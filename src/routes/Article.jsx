@@ -2,12 +2,14 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import {
   castVoteOnArticle,
+  commentOnArticle,
   fetchArticleById,
   fetchArticleComments,
 } from "../../utils/api";
 import { MinusIcon, PlusIcon } from "lucide-react";
 import Chip from "../components/Chip";
 import ArticleSkeleton from "../components/ArticleSkeleton";
+import { toast } from "react-toastify";
 
 export default function Article() {
   const { id } = useParams();
@@ -16,6 +18,7 @@ export default function Article() {
   const [comments, setComments] = useState([]);
   const [hasError, setHasError] = useState(false);
   const [votes, setVotes] = useState(0);
+  const [commentInput, setCommentInput] = useState("");
 
   useEffect(() => {
     fetchArticleById(id)
@@ -47,6 +50,22 @@ export default function Article() {
       setVotes(votes + 1);
       e.target.disabled = false;
     });
+  };
+
+  const handleCommentInputBlur = (e) => {
+    const sender = e.target;
+    const value = sender.value;
+    if (value.length > 100) return toast.error(`Invalid comment length!`);
+    setCommentInput(value);
+  };
+
+  const handleCommentSubmit = (e) => {
+    const sender = e.target;
+    sender.disabled = true;
+    if(commentInput === "") return toast.error(`Invalid comment!`);
+    commentOnArticle(id, commentInput).then((data) => {
+      return toast.success(`Commented!`)
+    })
   };
 
   return (
@@ -85,14 +104,21 @@ export default function Article() {
             <div>
               <h1 className="font-bold text-xl">Comments</h1>
             </div>
-            <form>
+            <div className="m-1">
               <textarea
                 className="bg-dark-grey rounded w-full"
                 name="comment"
+                onBlur={handleCommentInputBlur}
               />
-            </form>
+              <button
+                className="w-full bg-iris rounded"
+                onClick={handleCommentSubmit}
+              >
+                Comment
+              </button>
+            </div>
             {comments.length === 0 ? (
-              <label>No comments :3</label>
+              <label>It's lonely here.</label>
             ) : (
               <div>
                 {comments.map((comment) => {
