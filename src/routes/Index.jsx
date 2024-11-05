@@ -7,6 +7,7 @@ import { UserContext } from "../contexts/User";
 export default function Index() {
   const [categorizedArticles, setCategorizedArticles] = useState({});
   const [hasError, setError] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetchArticles()
@@ -18,6 +19,7 @@ export default function Index() {
           categorizedItems[topic].push(article);
         });
         setCategorizedArticles(categorizedItems);
+        setLoading(false)
       })
       .catch(() => setError(setError(true)));
   }, []);
@@ -26,24 +28,20 @@ export default function Index() {
     ([topic, articles]) => ({ [topic]: articles.slice(0, 3) })
   );
 
+  if (hasError) return <h1>Error!</h1>
+
   return (
-    <>
-      {hasError ? (
-        <>Unknown error occurred</>
-      ) : (
-        <div className="m-1 grid gap-2">
-          {displayedArticles.map((item) => {
-            const [topic, articles] = Object.entries(item)[0];
-            return (
-              <Wrapper title={topic}>
-                {articles.map((article) => (
-                  <ArticleCard article={article} />
-                ))}
-              </Wrapper>
-            );
-          })}
-        </div>
-      )}
-    </>
+    <div className="m-1 grid gap-2">
+      {displayedArticles.map((item) => {
+        const [topic, articles] = Object.entries(item)[0];
+        return (
+          <Wrapper title={topic}>
+            {articles.map((article) => (
+              <ArticleCard article={article} />
+            ))}
+          </Wrapper>
+        );
+      })}
+    </div>
   );
 }
