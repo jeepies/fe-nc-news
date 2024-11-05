@@ -10,6 +10,7 @@ export default {
         "iris": "#6256B9",
         "success": "#55EFC4",
         "fail": "#FF7675",
+        "faint": "#C4C4C4"
       }
     },
   },

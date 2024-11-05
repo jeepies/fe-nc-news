@@ -10,12 +10,14 @@ import Index from "./routes/Index";
 import Article from "./routes/Article";
 import Topics from "./routes/Topics";
 import Articles from "./routes/Articles";
+import PageNotFound from "./routes/PageNotFound";
 
 function App() {
   return (
     <>
       <Navbar />
       <Routes>
+        <Route path="*" element={<PageNotFound/>}/>
         <Route path="/" element={<Index />} />
         <Route path="/article/:id" element={<Article />} />
         <Route path="/topics" element={<Topics />} />
