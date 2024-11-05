@@ -25,10 +25,31 @@ export default function Articles() {
     setSearchParams(builtParams);
   }
 
+  const setSortBy = (e) => {
+    builtParams["sort_by"] = e.target.value
+    setSearchParams(builtParams)
+  }
+
+  const setOrderBy = (e) => {
+    builtParams["order"] = e.target.value
+    setSearchParams(builtParams)
+  }
+
   return (
     <div className="m-1 space-y-1">
       <div className="grid grid-cols-3 sm:grid-cols-12 gap-1">
         {topics.map((topic) => <Chip onClick={() => setTopic(topic.slug)} className={builtParams["topic"] === topic.slug ? "border border-iris" : ""} useDark text={topic.slug} />)}
+      </div>
+      <div className="grid grid-cols-2 gap-1">
+        <select name="sort_by" defaultValue="created_at" onChange={setSortBy}>
+          <option value="created_at">Created At</option>
+          <option value="votes">Votes</option>
+          {/* <option value="comment_count">Comment Count</option> */}
+        </select>
+        <select name="order_by" defaultValue="desc" onChange={setOrderBy}>
+          <option value="desc">Descending</option>
+          <option value="asc">Ascending</option>
+        </select>
       </div>
       <div>
         <Wrapper title="Articles">
