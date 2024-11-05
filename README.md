@@ -1,8 +1,21 @@
-# React + Vite
+# Northcoders News Frontend
+### This project goes hand-in-hand with [be-nc-news](https://github.com/jeepies/be-nc-news)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+The northcoders news frontend allows a user to interact with the API through a clean, reactive user interface, utilising POST, DELETE, PATCH and GET requests handled through the API.
 
-Currently, two official plugins are available:
+## Running locally
+### Requirements
+Node: ```22.8.0```
+<br>
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### Prerequisites
+It is recommended that you follow the steps in [be-nc-news](https://github.com/jeepies/be-nc-news) to setup your own backend, then change the URL in `utils/api.js`
+
+### Guide
+1. Clone the project with `git clone https://github.com/jeepies/fe-nc-news.git`
+2. Move into the directory using `cd fe-nc-news`
+3. Install dependencies using `npm i`
+4. Run the dev server using `npm run dev`
+
+--- 
+This portfolio project was created as part of a Digital Skills Bootcamp in Software Engineering provided by [Northcoders](https://northcoders.com/)
