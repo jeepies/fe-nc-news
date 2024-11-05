@@ -2,7 +2,7 @@ import axios from "axios";
 
 const API = axios.create({
   baseURL: "https://be-nc-news-47u0.onrender.com/api",
-  timeout: 1000,
+  timeout: 5000,
 });
 
 /**
@@ -22,8 +22,8 @@ export const fetchTopics = () => {
   );
 };
 
-export const fetchArticles = () => {
-  return API.get("/articles").then(
+export const fetchArticles = (params) => {
+  return API.get("/articles", { params: params }).then(
     (response) => _validateResponseAndGrabData(response).articles
   );
 };
@@ -53,11 +53,11 @@ export const commentOnArticle = (id, user, comment) => {
   }).then((response) => _validateResponseAndGrabData(response));
 };
 
-export const fetchArticlesUnderTopic = (topic) => {
-  return API.get("/articles", { params: { topic: topic } }).then(
-    (response) => _validateResponseAndGrabData(response).articles
-  );
-};
+// export const fetchArticlesUnderTopic = (topic) => {
+//   return API.get("/articles", { params: { topic: topic } }).then(
+//     (response) => _validateResponseAndGrabData(response).articles
+//   );
+// };
 
 export const deleteCommentById = (commentId) => {
   return API.delete(`/comments/${commentId}`).then((response) =>

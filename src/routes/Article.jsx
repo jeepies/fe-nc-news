@@ -49,9 +49,11 @@ export default function Article() {
     castVoteOnArticle(id, 1).then(() => {
       setVotes(votes + 1);
       e.target.disabled = false;
-      return toast.success(`Successfully downvoted!`)
+      return toast.success(`Successfully voted!`)
     });
   };
+
+  if (hasError) return <h1>Error!</h1>
 
   return (
     <>
@@ -85,7 +87,7 @@ export default function Article() {
             </div>
           </div>
 
-          <CommentBox comments={{comments, setComments}} id={id}/>
+          <CommentBox comments={{ comments, setComments }} id={id} />
         </>
       )}
     </>
