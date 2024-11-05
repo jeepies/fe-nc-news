@@ -53,6 +53,8 @@ export default function Article() {
     });
   };
 
+  if (hasError) return <h1>Error!</h1>
+
   return (
     <>
       {loading ? (
@@ -85,7 +87,7 @@ export default function Article() {
             </div>
           </div>
 
-          <CommentBox comments={{comments, setComments}} id={id}/>
+          <CommentBox comments={{ comments, setComments }} id={id} />
         </>
       )}
     </>
