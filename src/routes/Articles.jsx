@@ -1,17 +1,21 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import { fetchArticlesUnderTopic, fetchArticles } from "../../utils/api";
+import { fetchArticles } from "../../utils/api";
 import Wrapper from "../components/Wrapper";
 import ArticleCard from "../components/ArticleCard";
+import Chip from "../components/Chip"
 
 export default function Articles() {
   const [searchParams, setSearchParams] = useSearchParams();
   const [articles, setArticles] = useState([]);
 
-  const topic = searchParams.get("topic");
+  const possibleParameters = ["topic", "sort_by", "order"]
+  const params = possibleParameters.filter((possibleParameter) => searchParams.has(possibleParameter))
+  const builtParams = {};
+  params.forEach((param) => builtParams[param] = searchParams.get(param))
 
   useEffect(() => {
-    const request = topic ? fetchArticlesUnderTopic(topic) : fetchArticles();
+    const request = fetchArticles(builtParams);
     request.then((response) => {
       setArticles(response);
     });
@@ -19,8 +23,8 @@ export default function Articles() {
 
   return (
     <div className="m-1">
-      <Wrapper title={topic ?? "Articles"}>
-        {articles.map((article) => <ArticleCard article={article}/>)}
+      <Wrapper title="Articles">
+        {articles.map((article) => <ArticleCard article={article} />)}
       </Wrapper>
     </div>
   );
