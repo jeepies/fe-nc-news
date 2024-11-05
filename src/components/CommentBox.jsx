@@ -59,7 +59,7 @@ export default function CommentBox(props) {
           Comment
         </button>
       </div>
-      {comments.length === 0 ? (
+      {!comments || comments.length === 0 ? (
         <label>It's lonely here.</label>
       ) : (
         <div>
