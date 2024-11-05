@@ -41,12 +41,12 @@ export default function Articles() {
         {topics.map((topic) => <Chip onClick={() => setTopic(topic.slug)} className={builtParams["topic"] === topic.slug ? "border border-iris" : ""} useDark text={topic.slug} />)}
       </div>
       <div className="grid grid-cols-2 gap-1">
-        <select name="sort_by" defaultValue="created_at" onChange={setSortBy}>
+        <select className="bg-heavy-metal text-white p-1 rounded" name="sort_by" defaultValue="created_at" onChange={setSortBy}>
           <option value="created_at">Created At</option>
           <option value="votes">Votes</option>
           {/* <option value="comment_count">Comment Count</option> */}
         </select>
-        <select name="order_by" defaultValue="desc" onChange={setOrderBy}>
+        <select className="bg-heavy-metal text-white p-1 rounded" name="order_by" defaultValue="desc" onChange={setOrderBy}>
           <option value="desc">Descending</option>
           <option value="asc">Ascending</option>
         </select>
