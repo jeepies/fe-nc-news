@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import {
   castVoteOnArticle,
   commentOnArticle,
@@ -84,7 +84,7 @@ export default function Article() {
               aria-hidden
             />
             <h1 className="font-bold text-xl">
-              {article.title} <Chip text={article.topic} />
+              {article.title} <Link to={"/articles?topic=" + article.topic}><Chip text={article.topic} /></Link>
             </h1>
             <p className="font-extralight text-sm opacity-75">
               By {article.author}

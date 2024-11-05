@@ -17,8 +17,8 @@ const _validateResponseAndGrabData = (response) => {
 };
 
 export const fetchTopics = () => {
-  return API.get("/topics").then((response) =>
-    _validateResponseAndGrabData(response)
+  return API.get("/topics").then(
+    (response) => _validateResponseAndGrabData(response).topics
   );
 };
 
@@ -51,4 +51,10 @@ export const commentOnArticle = (id, comment) => {
     username: "tickle122",
     body: comment,
   }).then((response) => _validateResponseAndGrabData(response));
+};
+
+export const fetchArticlesUnderTopic = (topic) => {
+  return API.get("/articles", { params: { topic: topic } }).then(
+    (response) => _validateResponseAndGrabData(response).articles
+  );
 };

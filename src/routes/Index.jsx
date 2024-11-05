@@ -28,7 +28,7 @@ export default function Index() {
   return (
     <>
       {hasError ? (
-        <></>
+        <>Unknown error occurred</>
       ) : (
         <div className="m-1 grid gap-2">
           {displayedArticles.map((item) => {
