@@ -37,10 +37,11 @@ export default function CommentBox(props) {
     const sender = e.target;
     let comment = sender.parentNode;
     if (comment.tagName === "svg") comment = comment.parentNode
-    deleteCommentById(comment.id).then(() => {
+    const deletePromise = deleteCommentById(comment.id).then(() => {
       const _comments = comments.filter(c => c.comment_id !== +comment.id)
       setComments(_comments)
-    }).catch((a) => toast.error("Failed to delete comment. Does it exist?"))
+    })
+    toast.promise(deletePromise, { pending: "Deleting comment...", success: "Successfully deleted comment!", error: "Failed to delete comment." })
   }
 
   return (
