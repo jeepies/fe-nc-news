@@ -9,7 +9,7 @@ const API = axios.create({
  * @param {axios.AxiosResponse<any, any>} response
  */
 const _validateResponseAndGrabData = (response) => {
-  if (response.status !== 200)
+  if (![200, 204].includes(response.status))
     return Promise.reject(
       `invalid status code. expected 200, got ${response.status}`
     );
@@ -46,9 +46,9 @@ export const castVoteOnArticle = (id, votes) => {
   );
 };
 
-export const commentOnArticle = (id, comment) => {
+export const commentOnArticle = (id, user, comment) => {
   return API.post(`/articles/${id}/comments`, {
-    username: "tickle122",
+    username: user.username,
     body: comment,
   }).then((response) => _validateResponseAndGrabData(response));
 };
@@ -56,5 +56,11 @@ export const commentOnArticle = (id, comment) => {
 export const fetchArticlesUnderTopic = (topic) => {
   return API.get("/articles", { params: { topic: topic } }).then(
     (response) => _validateResponseAndGrabData(response).articles
+  );
+};
+
+export const deleteCommentById = (commentId) => {
+  return API.delete(`/comments/${commentId}`).then((response) =>
+    _validateResponseAndGrabData(response)
   );
 };

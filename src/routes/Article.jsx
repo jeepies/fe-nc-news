@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import {
   castVoteOnArticle,
-  commentOnArticle,
   fetchArticleById,
   fetchArticleComments,
 } from "../../utils/api";
@@ -10,6 +9,7 @@ import { MinusIcon, PlusIcon } from "lucide-react";
 import Chip from "../components/Chip";
 import ArticleSkeleton from "../components/ArticleSkeleton";
 import { toast } from "react-toastify";
+import CommentBox from "../components/CommentBox";
 
 export default function Article() {
   const { id } = useParams();
@@ -18,7 +18,6 @@ export default function Article() {
   const [comments, setComments] = useState([]);
   const [hasError, setHasError] = useState(false);
   const [votes, setVotes] = useState(0);
-  const [commentInput, setCommentInput] = useState("");
 
   useEffect(() => {
     fetchArticleById(id)
@@ -54,22 +53,6 @@ export default function Article() {
     });
   };
 
-  const handleCommentInputBlur = (e) => {
-    const sender = e.target;
-    const value = sender.value;
-    if (value.length > 100) return toast.error(`Invalid comment length!`);
-    setCommentInput(value);
-  };
-
-  const handleCommentSubmit = (e) => {
-    const sender = e.target;
-    sender.disabled = true;
-    if(commentInput === "") return toast.error(`Invalid comment!`);
-    commentOnArticle(id, commentInput).then((data) => {
-      return toast.success(`Commented!`)
-    })
-  };
-
   return (
     <>
       {loading ? (
@@ -102,41 +85,7 @@ export default function Article() {
             </div>
           </div>
 
-          <div className="bg-heavy-metal m-2 p-2 rounded text-white">
-            <div>
-              <h1 className="font-bold text-xl">Comments</h1>
-            </div>
-            <div className="m-1">
-              <textarea
-                className="bg-dark-grey rounded w-full"
-                name="comment"
-                onBlur={handleCommentInputBlur}
-              />
-              <button
-                className="w-full bg-iris rounded"
-                onClick={handleCommentSubmit}
-              >
-                Comment
-              </button>
-            </div>
-            {comments.length === 0 ? (
-              <label>It's lonely here.</label>
-            ) : (
-              <div>
-                {comments.map((comment) => {
-                  const { author, body, created_at, votes } = comment;
-                  return (
-                    <div className="bg-dark-grey rounded p-1 m-1">
-                      <p>{body}</p>
-                      <p className="font-extralight text-sm opacity-75">
-                        By {author}
-                      </p>
-                    </div>
-                  );
-                })}
-              </div>
-            )}
-          </div>
+          <CommentBox comments={{comments, setComments}} id={id}/>
         </>
       )}
     </>
