@@ -10,10 +10,7 @@ export default function CommentBox(props) {
   const { comments: {comments, setComments}, id } = props;
 
   const handleCommentInputBlur = (e) => {
-    const sender = e.target;
-    const value = sender.value;
-    if (value.length > 100) return toast.error(`Invalid comment length!`);
-    setCommentInput(value);
+    if (commentInput.length > 100) return toast.error(`Invalid comment length!`);
   };
 
   const handleCommentSubmit = (e) => {
@@ -23,8 +20,14 @@ export default function CommentBox(props) {
     commentOnArticle(id, user, commentInput).then((data) => {
       // Doing it this way also puts the comments at the very top for the first render, awesome!
       setComments([data, ...comments])
+      sender.disabled = false;
+      setCommentInput("");
     });
   };
+
+  const handleCommentChange = (e) => {
+    setCommentInput(e.target.value)
+  }
 
   const deleteComment = (e) => {
     const sender = e.target;
@@ -45,7 +48,9 @@ export default function CommentBox(props) {
         <textarea
           className="bg-dark-grey rounded w-full"
           name="comment"
+          value={commentInput}
           onBlur={handleCommentInputBlur}
+          onChange={handleCommentChange}
         />
         <button
           className="w-full bg-iris rounded"
