@@ -15,8 +15,8 @@ export default function CommentBox(props) {
 
   const handleCommentSubmit = (e) => {
     const sender = e.target;
-    sender.disabled = true;
     if (commentInput === "") return toast.error(`Invalid comment!`);
+    sender.disabled = true;
     commentOnArticle(id, user, commentInput).then((data) => {
       // Doing it this way also puts the comments at the very top for the first render, awesome!
       setComments([data, ...comments])
