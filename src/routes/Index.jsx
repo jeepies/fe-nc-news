@@ -1,7 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { fetchArticles } from "../../utils/api";
 import Wrapper from "../components/Wrapper";
 import ArticleCard from "../components/ArticleCard";
+import { UserContext } from "../contexts/User";
 
 export default function Index() {
   const [categorizedArticles, setCategorizedArticles] = useState({});
