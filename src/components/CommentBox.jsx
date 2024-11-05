@@ -19,7 +19,8 @@ export default function CommentBox(props) {
     sender.disabled = true;
     commentOnArticle(id, user, commentInput).then((data) => {
       // Doing it this way also puts the comments at the very top for the first render, awesome!
-      setComments([data, ...comments])
+      const _comments = comments ? [data, ...comments] : [data]
+      setComments(_comments)
       sender.disabled = false;
       setCommentInput("");
     });
@@ -36,7 +37,7 @@ export default function CommentBox(props) {
     deleteCommentById(comment.id).then(() => {
       const _comments = comments.filter(c => c.comment_id !== +comment.id)
       setComments(_comments)
-    })
+    }).catch((a) => toast.error("Failed to delete comment. Does it exist?"))
   }
 
   return (
