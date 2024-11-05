@@ -53,7 +53,7 @@ export default function Articles() {
       </div>
       <div>
         <Wrapper title="Articles">
-          {articles.length === 0 ? <p>No articles.</p> : articles.map((article) => <ArticleCard article={article} />)}
+          {articles.length === 0 ? <p>No articles, or this topic doesn't exist!.</p> : articles.map((article) => <ArticleCard article={article} />)}
         </Wrapper>
       </div>
     </div>
