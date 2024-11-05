@@ -3,6 +3,8 @@
 
 The northcoders news frontend allows a user to interact with the API through a clean, reactive user interface, utilising POST, DELETE, PATCH and GET requests handled through the API.
 
+[See it in action](https://fe-nc-news-jeepies.netlify.app/)
+
 ## Running locally
 ### Requirements
 Node: ```22.8.0```
