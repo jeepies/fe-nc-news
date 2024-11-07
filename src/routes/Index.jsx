@@ -1,8 +1,7 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import { fetchArticles } from "../../utils/api";
 import Wrapper from "../components/Wrapper";
 import ArticleCard from "../components/ArticleCard";
-import { UserContext } from "../contexts/User";
 
 export default function Index() {
   const [categorizedArticles, setCategorizedArticles] = useState({});
@@ -29,15 +28,16 @@ export default function Index() {
   );
 
   if (hasError) return <h1>Error!</h1>
+  if(loading) return <>Loading...</>
 
   return (
     <div className="m-1 grid gap-2">
       {displayedArticles.map((item) => {
         const [topic, articles] = Object.entries(item)[0];
         return (
-          <Wrapper title={topic}>
+          <Wrapper title={topic} key={topic}>
             {articles.map((article) => (
-              <ArticleCard article={article} />
+              <ArticleCard article={article} key={article.article_id}/>
             ))}
           </Wrapper>
         );
