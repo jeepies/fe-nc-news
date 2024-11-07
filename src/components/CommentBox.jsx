@@ -10,7 +10,7 @@ export default function CommentBox(props) {
   const [commentStatus, setCommentStatus] = useState("");
   const { comments: { comments, setComments }, id } = props;
 
-  const handleCommentInputBlur = (e) => {
+  const handleCommentInputBlur = () => {
     if (commentInput.length > 100) return toast.error(`Invalid comment length!`);
   };
 
@@ -24,8 +24,8 @@ export default function CommentBox(props) {
       const _comments = comments ? [data, ...comments] : [data]
       setComments(_comments)
       sender.disabled = false;
-      await setCommentInput("");
-      await setCommentStatus("")
+      setCommentInput("");
+      setCommentStatus("")
     });
   };
 
@@ -69,13 +69,13 @@ export default function CommentBox(props) {
         </button>
       </div>
       {!comments || comments.length === 0 ? (
-        <label>It's lonely here.</label>
+        <label>It&apos;s lonely here.</label>
       ) : (
         <div>
           {comments.map((comment) => {
-            const { author, body, created_at, votes, comment_id } = comment;
+            const { author, body, comment_id } = comment;
             return (
-              <div className="bg-dark-grey rounded p-1 m-1" id={comment_id}>
+              <div key={comment_id} className="bg-dark-grey rounded p-1 m-1" id={comment_id}>
                 <p>{body}</p>
                 <p className="font-extralight text-sm opacity-75">
                   By {author}
