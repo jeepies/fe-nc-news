@@ -1,7 +1,7 @@
 export default function Navbar() {
   return (
     <nav className="bg-heavy-metal">
-      <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+      <div className="max-w-screen-xl flex flex-wrap items-center justify-between p-4">
         <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
           <a href="/">NC News</a>
         </span>
