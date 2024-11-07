@@ -7,7 +7,6 @@ import { TrashIcon } from "lucide-react";
 export default function CommentBox(props) {
   const { user } = useContext(UserContext)
   const [commentInput, setCommentInput] = useState("");
-  const [commentStatus, setCommentStatus] = useState("");
   const { comments: { comments, setComments }, id } = props;
 
   const handleCommentInputBlur = () => {
@@ -15,18 +14,17 @@ export default function CommentBox(props) {
   };
 
   const handleCommentSubmit = (e) => {
-    setCommentStatus("COMMENTING")
     const sender = e.target;
-    if (commentInput === "") { setCommentStatus(""); return toast.error(`Invalid comment!`) };
+    if (commentInput === "") return toast.error(`Invalid comment!`);
     sender.disabled = true;
-    commentOnArticle(id, user, commentInput).then(async (data) => {
+    const commentPromise = commentOnArticle(id, user, commentInput).then(async (data) => {
       // Doing it this way also puts the comments at the very top for the first render, awesome!
       const _comments = comments ? [data, ...comments] : [data]
       setComments(_comments)
       sender.disabled = false;
       setCommentInput("");
-      setCommentStatus("")
     });
+    toast.promise(commentPromise, { pending: "Commenting...", success: "Added comment!", error: "Failed to comment."})
   };
 
   const handleCommentChange = (e) => {
@@ -63,9 +61,8 @@ export default function CommentBox(props) {
         <button
           className="w-full bg-iris rounded"
           onClick={handleCommentSubmit}
-          disabled={commentStatus === "COMMENTING"}
         >
-          {commentStatus === "COMMENTING" ? "Commenting..." : "Comment" }
+          Comment
         </button>
       </div>
       {!comments || comments.length === 0 ? (
