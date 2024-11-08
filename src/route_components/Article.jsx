@@ -33,7 +33,7 @@ export default function Article() {
         setLoading(false);
       })
       .catch(() => setHasError(true));
-  }, []);
+  }, [id]);
 
   const castNegativeVote = (e) => {
     e.target.disabled = true;
@@ -76,7 +76,7 @@ export default function Article() {
             </p>
             <br />
             <div className="">{article.body}</div>
-            <div className="bg-dark-grey rounded">
+            <div className="bg-dark-grey rounded flex w-16">
               <button id="plus" onClick={castNegativeVote}>
                 <MinusIcon />
               </button>

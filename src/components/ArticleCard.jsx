@@ -21,7 +21,9 @@ export default function ArticleCard(props) {
             {comment_count}
           </p>
         </span>
-        <img className="max-w-40 rounded hidden sm:block" alt={"Article image for " + title} src={article_img_url}/>
+        <div className="float-right">
+          <img className="max-w-40 rounded hidden sm:block" alt={"Article image for " + title} src={article_img_url} />
+        </div>
       </div>
     </Link>
   );

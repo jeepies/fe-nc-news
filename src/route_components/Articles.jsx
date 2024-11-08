@@ -18,7 +18,7 @@ export default function Articles() {
   useEffect(() => {
     fetchArticles(builtParams).then((response) => setArticles(response));
     fetchTopics().then((topics) => setTopics(topics))
-  }, [searchParams]);
+  }, [searchParams, builtParams]);
 
   const setTopic = (topic) => {
     builtParams["topic"] = topic;
@@ -38,7 +38,7 @@ export default function Articles() {
   return (
     <div className="m-1 space-y-1">
       <div className="grid grid-cols-3 sm:grid-cols-12 gap-1">
-        {topics.map((topic) => <Chip onClick={() => setTopic(topic.slug)} className={builtParams["topic"] === topic.slug ? "border border-iris" : ""} useDark text={topic.slug} />)}
+        {topics.map((topic) => <Chip key={topic.slug} onClick={() => setTopic(topic.slug)} className={builtParams["topic"] === topic.slug ? "border border-iris" : ""} useDark text={topic.slug} />)}
       </div>
       <div className="grid grid-cols-2 gap-1">
         <select className="bg-heavy-metal text-white p-1 rounded" name="sort_by" defaultValue="created_at" onChange={setSortBy}>
@@ -53,7 +53,7 @@ export default function Articles() {
       </div>
       <div>
         <Wrapper title="Articles">
-          {articles.length === 0 ? <p>No articles, or this topic doesn't exist!.</p> : articles.map((article) => <ArticleCard article={article} />)}
+          {articles.length === 0 ? <p>No articles, or this topic doesn&apos;t exist!.</p> : articles.map((article) => <ArticleCard key={article.article_id} article={article} />)}
         </Wrapper>
       </div>
     </div>

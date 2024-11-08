@@ -16,7 +16,7 @@ export default function Topics() {
   return (
     <div className="m-1 grid gap-2">
       {topics.map((topic) => (
-        <Link to={`/articles?topic=${topic.slug}`}>
+        <Link key={topic.slug} to={`/articles?topic=${topic.slug}`}>
           <Wrapper title={topic.slug} description={topic.description} />
         </Link>
       ))}

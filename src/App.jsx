@@ -1,23 +1,21 @@
-import { useContext, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/ReactToastify.css";
 
-import { UserContext, UserProvider } from "./contexts/User";
 import Navbar from "./components/Navbar";
 
-import Index from "./routes/Index";
-import Article from "./routes/Article";
-import Topics from "./routes/Topics";
-import Articles from "./routes/Articles";
-import PageNotFound from "./routes/PageNotFound";
+import Index from "./route_components/Index";
+import Article from "./route_components/Article";
+import Topics from "./route_components/Topics";
+import Articles from "./route_components/Articles";
+import PageNotFound from "./route_components/PageNotFound";
 
 function App() {
   return (
     <>
       <Navbar />
       <Routes>
-        <Route path="*" element={<PageNotFound/>}/>
+        <Route path="*" element={<PageNotFound />} />
         <Route path="/" element={<Index />} />
         <Route path="/article/:id" element={<Article />} />
         <Route path="/topics" element={<Topics />} />

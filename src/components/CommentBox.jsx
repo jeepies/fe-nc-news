@@ -2,12 +2,12 @@ import { useState, useContext } from "react";
 import { commentOnArticle, deleteCommentById } from "../../utils/api";
 import { toast } from "react-toastify";
 import { UserContext } from "../contexts/User"
-import { TrashIcon } from "lucide-react";
+import CommentCard from "./CommentCard";
 
 export default function CommentBox(props) {
   const { user } = useContext(UserContext)
   const [commentInput, setCommentInput] = useState("");
-  const { comments: { comments, setComments }, id } = props;
+  const { comments: { comments, setComments }, articleId } = props;
 
   const handleCommentInputBlur = () => {
     if (commentInput.length > 100) return toast.error(`Invalid comment length!`);
@@ -17,7 +17,7 @@ export default function CommentBox(props) {
     const sender = e.target;
     if (commentInput === "") return toast.error(`Invalid comment!`);
     sender.disabled = true;
-    const commentPromise = commentOnArticle(id, user, commentInput).then(async (data) => {
+    const commentPromise = commentOnArticle(articleId, user, commentInput).then((data) => {
       // Doing it this way also puts the comments at the very top for the first render, awesome!
       const _comments = comments ? [data, ...comments] : [data]
       setComments(_comments)
@@ -69,18 +69,7 @@ export default function CommentBox(props) {
         <label>It&apos;s lonely here.</label>
       ) : (
         <div>
-          {comments.map((comment) => {
-            const { author, body, comment_id } = comment;
-            return (
-              <div key={comment_id} className="bg-dark-grey rounded p-1 m-1" id={comment_id}>
-                <p>{body}</p>
-                <p className="font-extralight text-sm opacity-75">
-                  By {author}
-                </p>
-                {author === user.username ? <TrashIcon className="hover:cursor-pointer" onClick={deleteComment} /> : null}
-              </div>
-            );
-          })}
+          {comments.map((comment) => <CommentCard key={comment.comment_id} comment={comment} deleteComment={deleteComment}/>)}
         </div>
       )}
     </div>
