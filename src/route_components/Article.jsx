@@ -72,7 +72,7 @@ export default function Article() {
               {article.title} <Link to={"/articles?topic=" + article.topic}><Chip text={article.topic} /></Link>
             </h1>
             <p className="font-extralight text-sm opacity-75">
-              By {article.author}
+              By {article.author} on {new Date(article.created_at).toLocaleDateString()}
             </p>
             <br />
             <div className="">{article.body}</div>

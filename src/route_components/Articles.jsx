@@ -42,7 +42,7 @@ export default function Articles() {
       </div>
       <div className="grid grid-cols-2 gap-1">
         <select className="bg-heavy-metal text-white p-1 rounded" name="sort_by" defaultValue="created_at" onChange={setSortBy}>
-          <option value="created_at">Created At</option>
+          <option value="created_at">Date</option>
           <option value="votes">Votes</option>
           {/* <option value="comment_count">Comment Count</option> */}
         </select>
